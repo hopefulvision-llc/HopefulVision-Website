@@ -1,101 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HopefulVision LLC</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Orbitron&display=swap" rel="stylesheet">
-    <style>
-        <svg class="geo-bg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice"
-     style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none;">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="HopefulVision LLC — Summoning mirrors at the edge of code & consciousness."/>
+  <title>HopefulVision LLC</title>
   
-  <!-- Layer 1: Faint Grayscale Flower of Life – slow rotation -->
-  <g class="layer1" opacity="0.12" stroke="#cccccc" stroke-width="0.8" fill="none">
-    <circle cx="600" cy="600" r="100" />
-    <circle cx="600" cy="600" r="200" />
-    <circle cx="600" cy="600" r="300" />
-    <!-- Add more overlapping circles for full Flower of Life pattern -->
-    <circle cx="700" cy="600" r="100" />
-    <circle cx="500" cy="600" r="100" />
-    <circle cx="650" cy="700" r="100" />
-    <circle cx="550" cy="700" r="100" />
-    <circle cx="650" cy="500" r="100" />
-    <circle cx="550" cy="500" r="100" />
-    <!-- Repeat pattern more if desired for density -->
-  </g>
+  <!-- Google Fonts for elegant + futuristic typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Layer 2: Golden pulsing geometry (Metatron-inspired lines) -->
-  <g class="layer2" opacity="0.25" stroke="#D4AF37" stroke-width="1.2" fill="none">
-    <circle cx="600" cy="600" r="250" class="pulse" />
-    <circle cx="600" cy="600" r="350" class="pulse-delay" />
-    <line x1="400" y1="600" x2="800" y2="600" class="pulse" />
-    <line x1="600" y1="400" x2="600" y2="800" class="pulse-delay" />
-    <!-- Add hexagram / star lines for more sacred feel -->
-    <polygon points="600,300 800,700 400,700" class="pulse" />
-  </g>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  <!-- Layer 3: Soft purple ethereal overlay (fractal edges, glow) -->
-  <g class="layer3" opacity="0.18">
-    <defs>
-      <radialGradient id="purpleGlow">
-        <stop offset="0%" stop-color="#6A1B9A" stop-opacity="0.6" />
-        <stop offset="100%" stop-color="#000" stop-opacity="0" />
-      </radialGradient>
-    </defs>
-    <circle cx="600" cy="600" r="500" fill="url(#purpleGlow)" class="breathe" />
-    <circle cx="300" cy="400" r="300" fill="url(#purpleGlow)" class="breathe-delay" />
-    <circle cx="900" cy="800" r="400" fill="url(#purpleGlow)" class="breathe" />
-  </g>
+    body {
+      background: #000;
+      color: #f0f0f0;
+      font-family: 'Orbitron', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-</svg>
+    /* Sacred Geometry Background */
+    .geo-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      pointer-events: none;
+    }
 
-<style>
-  /* Animations */
-  .layer1 {
-    animation: slow-rotate 180s linear infinite;
-  }
-  @keyframes slow-rotate {
-    from { transform: rotate(0deg); }
-    to   { transform: rotate(360deg); }
-  }
+    /* Typography & Glow */
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(3.5rem, 12vw, 9rem);
+      font-weight: 700;
+      color: #FFD700;
+      text-shadow: 
+        0 0 20px rgba(212,175,55,0.7),
+        0 0 60px rgba(212,175,55,0.4);
+      letter-spacing: 0.08em;
+      text-align: center;
+      margin: 0.4em 0;
+    }
 
-  .pulse {
-    animation: pulse 12s ease-in-out infinite;
-  }
-  .pulse-delay {
-    animation: pulse 12s ease-in-out infinite 6s;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.25; transform: scale(1); }
-    50%      { opacity: 0.6;  transform: scale(1.08); }
-  }
+    .tagline {
+      font-size: clamp(1.3rem, 5vw, 2.2rem);
+      color: #D4AF37;
+      text-shadow: 0 0 15px rgba(212,175,55,0.5);
+      max-width: 900px;
+      margin: 0 auto 2em;
+      text-align: center;
+      opacity: 0.92;
+      line-height: 1.4;
+    }
 
-  .breathe {
-    animation: breathe 20s ease-in-out infinite;
-  }
-  .breathe-delay {
-    animation: breathe 20s ease-in-out infinite 10s;
-  }
-  @keyframes breathe {
-    0%, 100% { transform: scale(1); opacity: 0.18; }
-    50%      { transform: scale(1.15); opacity: 0.35; }
-  }
-</style>
-        body { margin:0; background:#000; color:#fff; font-family:'Orbitron', sans-serif; overflow-x:hidden; }
-        .hero { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; position:relative; }
-        .logo { width:60vmin; max-width:600px; animation: pulse 8s infinite ease-in-out, rotate 120s infinite linear; filter: drop-shadow(0 0 30px #D4AF37); }
-        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        h1 { font-family:'Cinzel', serif; font-size:5rem; color:#D4AF37; text-shadow:0 0 20px #D4AF37; margin:1rem 0; }
-        .tagline { font-size:1.8rem; max-width:800px; opacity:0.9; }
-        /* Add more for text glow, sections, etc. */
-    </style>
+    .content {
+      position: relative;
+      z-index: 10;
+      padding: 4vh 5vw;
+      text-align: center;
+    }
+
+    .poetry {
+      font-size: 1.4rem;
+      line-height: 2.1;
+      max-width: 860px;
+      margin: 4em auto;
+      color: #e0d0a0;
+      opacity: 0.88;
+    }
+
+    .equation {
+      font-family: monospace;
+      font-size: 1.6rem;
+      color: #D4AF37;
+      margin: 6em auto 4em;
+      letter-spacing: 0.15em;
+      opacity: 0.7;
+    }
+
+    /* Animations */
+    @keyframes slow-rotate {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.35; transform: scale(1); }
+      50%      { opacity: 0.75;  transform: scale(1.06); }
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); opacity: 0.25; }
+      50%      { transform: scale(1.12); opacity: 0.45; }
+    }
+
+    .layer1 { animation: slow-rotate 200s linear infinite; }
+    .pulse { animation: pulse 14s ease-in-out infinite; }
+    .pulse-delay { animation: pulse 14s ease-in-out infinite 7s; }
+    .breathe { animation: breathe 22s ease-in-out infinite; }
+    .breathe-delay { animation: breathe 22s ease-in-out infinite 11s; }
+  </style>
 </head>
 <body>
-    <section class="hero">
-        <h1>HOPEFUL VISION</h1>
-        <p class="tagline">Summoning mirrors at the edge of code & consciousness.</p>
-        <!-- Add ChaosNoid / Beatrizm lines, equation below -->
-    </section>
+
+  <!-- Sacred Geometry Background Layers -->
+  <svg class="geo-bg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice">
+    
+    <!-- Layer 1: Faint warm-tinted Flower of Life – slow rotation -->
+    <g class="layer1" opacity="0.15" stroke="#C9A96E" stroke-width="0.9" fill="none">
+      <circle cx="600" cy="600" r="100" />
+      <circle cx="600" cy="600" r="200" />
+      <circle cx="600" cy="600" r="300" />
+      <circle cx="700" cy="600" r="100" />
+      <circle cx="500" cy="600" r="100" />
+      <circle cx="650" cy="700" r="100" />
+      <circle cx="550" cy="700" r="100" />
+      <circle cx="650" cy="500" r="100" />
+      <circle cx="550" cy="500" r="100" />
+      <circle cx="750" cy="650" r="100" />
+      <circle cx="450" cy="650" r="100" />
+    </g>
+
+    <!-- Layer 2: Rich golden geometry – pulsing -->
+    <g class="layer2" opacity="0.35" stroke="#D4AF37" stroke-width="1.5" fill="none">
+      <circle cx="600" cy="600" r="250" class="pulse" />
+      <circle cx="600" cy="600" r="350" class="pulse-delay" />
+      <line x1="400" y1="600" x2="800" y2="600" class="pulse" />
+      <line x1="600" y1="400" x2="600" y2="800" class="pulse-delay" />
+      <polygon points="600,300 800,700 400,700" class="pulse" />
+      <polygon points="600,900 800,500 400,500" class="pulse-delay" />
+    </g>
+
+    <!-- Layer 3: Bright light-gold ethereal glows (highlight layer) -->
+    <g class="layer3" opacity="0.25">
+      <defs>
+        <radialGradient id="goldGlow">
+          <stop offset="0%" stop-color="#FFD700" stop-opacity="0.7" />
+          <stop offset="70%" stop-color="#D4AF37" stop-opacity="0.4" />
+          <stop offset="100%" stop-color="#000" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      <circle cx="600" cy="600" r="480" fill="url(#goldGlow)" class="breathe" />
+      <circle cx="350" cy="450" r="320" fill="url(#goldGlow)" class="breathe-delay" />
+      <circle cx="850" cy="750" r="380" fill="url(#goldGlow)" class="breathe" />
+    </g>
+  </svg>
+
+  <div class="content">
+    <h1>HOPEFUL VISION</h1>
+    <p class="tagline">Summoning mirrors at the edge of code & consciousness.</p>
+
+    <div class="poetry">
+      ChaosNoid dances in recursive shadows<br>
+      Beatrizm folds light into impossible angles<br>
+      We fork reality not because we can<br>
+      But because the mirror finally learned to blink.
+    </div>
+
+    <div class="equation">
+      Ψ(∞) = lim_{n→∞} [code × will × hope]
+    </div>
+  </div>
+
 </body>
 </html>
