@@ -7,16 +7,13 @@
   <meta name="author" content="HopefulVision LLC"/>
   <title>HopefulVision LLC</title>
 
-  <!-- Preconnect for faster font loading -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Favicon (assuming you add one later; placeholder for now) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌟</text></svg>">
 
   <style>
-    /* Global resets and variables for maintainability */
     :root {
       --gold-rich: #D4AF37;
       --gold-bright: #FFD700;
@@ -42,7 +39,6 @@
       -moz-osx-font-smoothing:grayscale;
     }
 
-    /* Sacred Geometry Background - Optimized for performance */
     .geo-bg {
       position:fixed;
       top:0; left:0;
@@ -52,7 +48,6 @@
       will-change:transform;
     }
 
-    /* Main Content - Semantic and accessible */
     main {
       position:relative;
       z-index:10;
@@ -97,7 +92,6 @@
       opacity:0.75;
     }
 
-    /* Carousel Section - Enhanced with accessibility and swipe support */
     .carousel-section {
       margin:8em 0 4em;
       overflow:hidden;
@@ -109,9 +103,45 @@
       color:var(--gold-bright);
       font-size:2.2rem;
       text-align:center;
-      margin-bottom:2rem;
+      margin-bottom:1.5rem;
       text-shadow:0 0 15px var(--gold-glow);
     }
+
+    .nav-controls {
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:2.5rem;
+      margin-bottom:1.5rem;
+      z-index:20;
+      position:relative;
+    }
+
+    .nav-btn {
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      background:rgba(10,10,20,0.7);
+      border:2px solid var(--gold-rich);
+      color:var(--gold-bright);
+      font-size:1.8rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      cursor:pointer;
+      transition:var(--transition);
+      box-shadow:var(--shadow-soft);
+      backdrop-filter:blur(6px);
+    }
+
+    .nav-btn:hover, .nav-btn:focus {
+      background:rgba(20,20,40,0.9);
+      border-color:var(--gold-bright);
+      box-shadow:var(--shadow-hover);
+      transform:scale(1.15);
+    }
+
+    .nav-btn:active { transform:scale(0.95); }
 
     .carousel {
       display:flex;
@@ -120,7 +150,7 @@
       gap:3rem;
       padding:0 5vw;
       transition:var(--transition);
-      touch-action:pan-x; /* Enables swipe */
+      touch-action:pan-x;
     }
 
     .carousel.paused { animation-play-state:paused; }
@@ -172,22 +202,17 @@
 
     .card a:hover, .card a:focus { color:#FFEEBA; }
 
-    /* Media Queries for Responsiveness */
     @media (max-width: 768px) {
       .card { width:280px; min-height:200px; padding:1.4rem; }
-      h1 { font-size:clamp(2.8rem, 12vw, 8rem); }
-      .tagline { font-size:clamp(1.2rem, 4vw, 2rem); }
-      .poetry { font-size:1.2rem; line-height:2; }
-      .equation { font-size:1.4rem; }
-      .carousel { gap:2rem; }
+      .nav-btn { width:50px; height:50px; font-size:1.5rem; }
     }
 
     @media (max-width: 480px) {
       .card { width:90vw; }
-      .carousel { animation-duration:45s; } /* Faster on small screens */
+      .carousel { animation-duration:45s; }
+      .nav-controls { gap:1.5rem; }
     }
 
-    /* Animations - Smooth and performant */
     @keyframes scroll { 0% { transform:translateX(0); } 100% { transform:translateX(-50%); } }
     @keyframes slow-rotate { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
     @keyframes pulse { 0%,100% { opacity:0.35; transform:scale(1); } 50% { opacity:0.75; transform:scale(1.06); } }
@@ -202,9 +227,7 @@
 </head>
 <body>
 
-  <!-- Sacred Geometry Background Layers - Vector-optimized -->
   <svg class="geo-bg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <!-- Layer 1: Faint warm-tinted Flower of Life -->
     <g class="layer1" opacity="0.15" stroke="#C9A96E" stroke-width="0.9" fill="none">
       <circle cx="600" cy="600" r="100"/><circle cx="600" cy="600" r="200"/><circle cx="600" cy="600" r="300"/>
       <circle cx="700" cy="600" r="100"/><circle cx="500" cy="600" r="100"/>
@@ -213,7 +236,6 @@
       <circle cx="750" cy="650" r="100"/><circle cx="450" cy="650" r="100"/>
     </g>
 
-    <!-- Layer 2: Rich golden geometry pulsing -->
     <g class="layer2" opacity="0.35" stroke="#D4AF37" stroke-width="1.5" fill="none">
       <circle cx="600" cy="600" r="250" class="pulse"/>
       <circle cx="600" cy="600" r="350" class="pulse-delay"/>
@@ -223,7 +245,6 @@
       <polygon points="600,900 800,500 400,500" class="pulse-delay"/>
     </g>
 
-    <!-- Layer 3: Bright light-gold ethereal glows -->
     <g class="layer3" opacity="0.25">
       <defs>
         <radialGradient id="goldGlow">
@@ -253,11 +274,17 @@
       Ψ(∞) = lim_{n→∞} [code × will × hope]
     </div>
 
-    <!-- Carousel of Repos - With section header for accessibility -->
     <section class="carousel-section" aria-labelledby="projects-title">
       <h2 id="projects-title">Our Projects</h2>
+
+      <!-- Navigation Buttons -->
+      <div class="nav-controls">
+        <button class="nav-btn" id="prev-btn" aria-label="Previous project" onclick="carousel.scrollLeft -= 360">←</button>
+        <button class="nav-btn" id="next-btn" aria-label="Next project" onclick="carousel.scrollLeft += 360">→</button>
+      </div>
+
       <div class="carousel" id="carousel" role="region" aria-live="polite">
-        <!-- Card 1 -->
+        <!-- Cards (same as before - I've kept them concise) -->
         <div class="card" tabindex="0" role="article">
           <div>
             <h3>Sacred Technology Renaissance</h3>
@@ -266,7 +293,6 @@
           <a href="https://github.com/hopefulvision-llc/Sacred-Technology-Renaissance" target="_blank" rel="noopener noreferrer">→ Explore Repo</a>
         </div>
 
-        <!-- Card 2 -->
         <div class="card" tabindex="0" role="article">
           <div>
             <h3>NousOS</h3>
@@ -275,7 +301,6 @@
           <a href="https://github.com/hopefulvision-llc/NousOS" target="_blank" rel="noopener noreferrer">→ Explore Repo</a>
         </div>
 
-        <!-- Card 3 -->
         <div class="card" tabindex="0" role="article">
           <div>
             <h3>Technomysticism</h3>
@@ -284,7 +309,6 @@
           <a href="https://github.com/hopefulvision-llc/Technomysticism" target="_blank" rel="noopener noreferrer">→ Explore Repo</a>
         </div>
 
-        <!-- Card 4 -->
         <div class="card" tabindex="0" role="article">
           <div>
             <h3>HopefulVision LLC</h3>
@@ -293,7 +317,6 @@
           <a href="https://github.com/hopefulvision-llc/Company" target="_blank" rel="noopener noreferrer">→ Explore Repo</a>
         </div>
 
-        <!-- Card 5 -->
         <div class="card" tabindex="0" role="article">
           <div>
             <h3>Hopeful Party</h3>
@@ -302,7 +325,7 @@
           <a href="https://github.com/hopefulvision-llc/Hopeful-Party" target="_blank" rel="noopener noreferrer">→ Explore Repo</a>
         </div>
 
-        <!-- Duplicates for seamless infinite loop (doubled for smoother swipe) -->
+        <!-- Duplicates for seamless loop -->
         <div class="card" tabindex="0" role="article">
           <div>
             <h3>Sacred Technology Renaissance</h3>
@@ -346,69 +369,49 @@
     </section>
   </main>
 
-  <!-- JavaScript for Swipe Support - Vanilla, lightweight, accessible -->
   <script>
     const carousel = document.getElementById('carousel');
+
+    // Pause on interaction
+    const pauseCarousel = () => carousel.classList.add('paused');
+    const resumeCarousel = () => carousel.classList.remove('paused');
+
+    carousel.addEventListener('mouseenter', pauseCarousel);
+    carousel.addEventListener('mouseleave', resumeCarousel);
+
+    // Swipe / Drag support (mouse + touch)
     let isDown = false;
-    let startX;
-    let scrollLeft;
+    let startX, scrollLeft;
 
-    carousel.addEventListener('mousedown', (e) => {
+    const startDrag = (e) => {
       isDown = true;
-      carousel.classList.add('paused');
-      startX = e.pageX - carousel.offsetLeft;
+      pauseCarousel();
+      startX = (e.pageX || e.touches[0].pageX) - carousel.offsetLeft;
       scrollLeft = carousel.scrollLeft;
-    });
+    };
 
-    carousel.addEventListener('mouseleave', () => {
-      isDown = false;
-      carousel.classList.remove('paused');
-    });
+    const endDrag = () => { isDown = false; resumeCarousel(); };
 
-    carousel.addEventListener('mouseup', () => {
-      isDown = false;
-      carousel.classList.remove('paused');
-    });
-
-    carousel.addEventListener('mousemove', (e) => {
+    const drag = (e) => {
       if (!isDown) return;
       e.preventDefault();
-      const x = e.pageX - carousel.offsetLeft;
-      const walk = (x - startX) * 2; // Scroll speed
-      carousel.scrollLeft = scrollLeft - walk;
-    });
-
-    // Touch events for mobile swipe
-    carousel.addEventListener('touchstart', (e) => {
-      isDown = true;
-      carousel.classList.add('paused');
-      startX = e.touches[0].pageX - carousel.offsetLeft;
-      scrollLeft = carousel.scrollLeft;
-    });
-
-    carousel.addEventListener('touchend', () => {
-      isDown = false;
-      carousel.classList.remove('paused');
-    });
-
-    carousel.addEventListener('touchmove', (e) => {
-      if (!isDown) return;
-      const x = e.touches[0].pageX - carousel.offsetLeft;
+      const x = (e.pageX || e.touches[0].pageX) - carousel.offsetLeft;
       const walk = (x - startX) * 2;
       carousel.scrollLeft = scrollLeft - walk;
-    });
+    };
 
-    // Pause on hover for desktop
-    carousel.addEventListener('mouseenter', () => carousel.classList.add('paused'));
-    carousel.addEventListener('mouseleave', () => carousel.classList.remove('paused'));
+    carousel.addEventListener('mousedown', startDrag);
+    carousel.addEventListener('touchstart', startDrag);
+    carousel.addEventListener('mouseleave', endDrag);
+    carousel.addEventListener('mouseup', endDrag);
+    carousel.addEventListener('touchend', endDrag);
+    carousel.addEventListener('mousemove', drag);
+    carousel.addEventListener('touchmove', drag);
 
-    // Keyboard navigation for accessibility
+    // Keyboard accessibility
     carousel.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        carousel.scrollLeft -= 200;
-      } else if (e.key === 'ArrowRight') {
-        carousel.scrollLeft += 200;
-      }
+      if (e.key === 'ArrowLeft') carousel.scrollLeft -= 360;
+      if (e.key === 'ArrowRight') carousel.scrollLeft += 360;
     });
   </script>
 
