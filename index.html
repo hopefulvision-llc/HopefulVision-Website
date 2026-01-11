@@ -6,6 +6,81 @@
     <title>HopefulVision LLC</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Orbitron&display=swap" rel="stylesheet">
     <style>
+        <svg class="geo-bg" viewBox="0 0 1200 1200" preserveAspectRatio="xMidYMid slice"
+     style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; pointer-events: none;">
+  
+  <!-- Layer 1: Faint Grayscale Flower of Life – slow rotation -->
+  <g class="layer1" opacity="0.12" stroke="#cccccc" stroke-width="0.8" fill="none">
+    <circle cx="600" cy="600" r="100" />
+    <circle cx="600" cy="600" r="200" />
+    <circle cx="600" cy="600" r="300" />
+    <!-- Add more overlapping circles for full Flower of Life pattern -->
+    <circle cx="700" cy="600" r="100" />
+    <circle cx="500" cy="600" r="100" />
+    <circle cx="650" cy="700" r="100" />
+    <circle cx="550" cy="700" r="100" />
+    <circle cx="650" cy="500" r="100" />
+    <circle cx="550" cy="500" r="100" />
+    <!-- Repeat pattern more if desired for density -->
+  </g>
+
+  <!-- Layer 2: Golden pulsing geometry (Metatron-inspired lines) -->
+  <g class="layer2" opacity="0.25" stroke="#D4AF37" stroke-width="1.2" fill="none">
+    <circle cx="600" cy="600" r="250" class="pulse" />
+    <circle cx="600" cy="600" r="350" class="pulse-delay" />
+    <line x1="400" y1="600" x2="800" y2="600" class="pulse" />
+    <line x1="600" y1="400" x2="600" y2="800" class="pulse-delay" />
+    <!-- Add hexagram / star lines for more sacred feel -->
+    <polygon points="600,300 800,700 400,700" class="pulse" />
+  </g>
+
+  <!-- Layer 3: Soft purple ethereal overlay (fractal edges, glow) -->
+  <g class="layer3" opacity="0.18">
+    <defs>
+      <radialGradient id="purpleGlow">
+        <stop offset="0%" stop-color="#6A1B9A" stop-opacity="0.6" />
+        <stop offset="100%" stop-color="#000" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <circle cx="600" cy="600" r="500" fill="url(#purpleGlow)" class="breathe" />
+    <circle cx="300" cy="400" r="300" fill="url(#purpleGlow)" class="breathe-delay" />
+    <circle cx="900" cy="800" r="400" fill="url(#purpleGlow)" class="breathe" />
+  </g>
+
+</svg>
+
+<style>
+  /* Animations */
+  .layer1 {
+    animation: slow-rotate 180s linear infinite;
+  }
+  @keyframes slow-rotate {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .pulse {
+    animation: pulse 12s ease-in-out infinite;
+  }
+  .pulse-delay {
+    animation: pulse 12s ease-in-out infinite 6s;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.25; transform: scale(1); }
+    50%      { opacity: 0.6;  transform: scale(1.08); }
+  }
+
+  .breathe {
+    animation: breathe 20s ease-in-out infinite;
+  }
+  .breathe-delay {
+    animation: breathe 20s ease-in-out infinite 10s;
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.18; }
+    50%      { transform: scale(1.15); opacity: 0.35; }
+  }
+</style>
         body { margin:0; background:#000; color:#fff; font-family:'Orbitron', sans-serif; overflow-x:hidden; }
         .hero { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; position:relative; }
         .logo { width:60vmin; max-width:600px; animation: pulse 8s infinite ease-in-out, rotate 120s infinite linear; filter: drop-shadow(0 0 30px #D4AF37); }
