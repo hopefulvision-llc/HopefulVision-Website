@@ -143,23 +143,33 @@
 
     .nav-btn:active { transform:scale(0.95); }
 
+    /* ✅ FIXED: wrapper is the scroll container */
     .carousel-wrapper {
-      overflow:hidden;
+      overflow-x:auto;
+      overflow-y:hidden;
       position:relative;
+      scroll-behavior:smooth;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;                 /* Firefox */
+      touch-action:pan-x;
+      cursor:grab;
     }
+    .carousel-wrapper::-webkit-scrollbar { display:none; }
+    .carousel-wrapper:active { cursor:grabbing; }
 
+    /* ✅ FIXED: carousel is the flex track, no transform animation */
     .carousel {
       display:flex;
       width:max-content;
-      animation:scroll 60s linear infinite;
       gap:3rem;
       padding:0 5vw;
       transition:var(--transition);
-      touch-action:pan-x;
       will-change:transform;
+      animation:none !important;
+      transform:none !important;
     }
 
-    .carousel.paused { animation-play-state:paused; }
+    .carousel.paused { /* hook class, autoplay pauses via JS */ }
 
     .card {
       width:340px;
@@ -174,6 +184,7 @@
       display:flex;
       flex-direction:column;
       justify-content:space-between;
+      flex:0 0 auto;
     }
 
     .card:hover, .card:focus-within {
@@ -215,13 +226,7 @@
 
     @media (max-width: 480px) {
       .card { width:90vw; }
-      .carousel { animation-duration:45s; }
       .nav-controls { gap:1.5rem; }
-    }
-
-    @keyframes scroll {
-      0% { transform:translateX(0); }
-      100% { transform:translateX(-50%); }
     }
 
     @keyframes slow-rotate { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
@@ -288,12 +293,12 @@
       <h2 id="projects-title">Our Projects</h2>
 
       <div class="nav-controls">
-        <button class="nav-btn" id="prev-btn" aria-label="Previous project" onclick="prevSlide()">←</button>
-        <button class="nav-btn" id="next-btn" aria-label="Next project" onclick="nextSlide()">→</button>
+        <button class="nav-btn" id="prev-btn" aria-label="Previous project">←</button>
+        <button class="nav-btn" id="next-btn" aria-label="Next project">→</button>
       </div>
 
       <div class="carousel-wrapper">
-        <div class="carousel" id="carousel" role="region" aria-live="polite">
+        <div class="carousel" id="carousel" role="region" aria-live="polite" tabindex="0">
           <!-- Cards -->
           <div class="card" tabindex="0" role="article">
             <div>
@@ -382,76 +387,130 @@
 
   <script>
     const carousel = document.getElementById('carousel');
-    const carouselWrapper = document.querySelector('.carousel-wrapper');
+    const wrapper = document.querySelector('.carousel-wrapper');
 
-    // Pause auto-scroll on interaction
-    const pauseCarousel = () => carousel.classList.add('paused');
-    const resumeCarousel = () => {
-      setTimeout(() => {
-        if (!carousel.matches(':hover') && !document.activeElement.closest('#carousel')) {
-          carousel.classList.remove('paused');
-        }
-      }, 2000); // Resume after 2s inactivity
+    // ---- Config
+    const CARD_STEP = 360;         // approx card width + gap; tweak if needed
+    const AUTOPLAY_SPEED = 0.45;   // px per frame (0 = off)
+
+    let autoplayRaf = null;
+    let paused = false;
+
+    // ---- Pause/Resume helpers
+    const pauseCarousel = () => {
+      paused = true;
+      carousel.classList.add('paused');
+      stopAutoplay();
     };
 
-    carousel.addEventListener('mouseenter', pauseCarousel);
-    carousel.addEventListener('mouseleave', resumeCarousel);
-    carousel.addEventListener('focusin', pauseCarousel);
-    carousel.addEventListener('focusout', resumeCarousel);
+    const resumeCarousel = () => {
+      setTimeout(() => {
+        if (!wrapper.matches(':hover') && !isPointerDown) {
+          paused = false;
+          carousel.classList.remove('paused');
+          startAutoplay();
+        }
+      }, 600);
+    };
 
-    // Navigation buttons with smooth scrollBy
+    // ---- Button navigation (scroll wrapper)
     function nextSlide() {
       pauseCarousel();
-      carousel.scrollBy({ left: 360, behavior: 'smooth' });
+      wrapper.scrollBy({ left: CARD_STEP, behavior: 'smooth' });
       resumeCarousel();
     }
 
     function prevSlide() {
       pauseCarousel();
-      carousel.scrollBy({ left: -360, behavior: 'smooth' });
+      wrapper.scrollBy({ left: -CARD_STEP, behavior: 'smooth' });
       resumeCarousel();
     }
 
-    document.getElementById('next-btn').onclick = nextSlide;
-    document.getElementById('prev-btn').onclick = prevSlide;
+    document.getElementById('next-btn').addEventListener('click', nextSlide);
+    document.getElementById('prev-btn').addEventListener('click', prevSlide);
 
-    // Swipe / Drag support (mouse + touch)
-    let isDown = false;
-    let startX, scrollLeft;
+    // ---- Autoplay via scrollLeft (works with buttons + swipe)
+    function startAutoplay() {
+      if (AUTOPLAY_SPEED <= 0) return;
+      if (autoplayRaf) return;
 
-    const startDrag = (e) => {
-      isDown = true;
+      const tick = () => {
+        autoplayRaf = null;
+
+        if (!paused && !isPointerDown) {
+          const maxScroll = wrapper.scrollWidth - wrapper.clientWidth;
+
+          // Seamless-ish loop (you duplicated cards)
+          if (wrapper.scrollLeft >= maxScroll - 2) {
+            wrapper.scrollLeft = 0;
+          } else {
+            wrapper.scrollLeft += AUTOPLAY_SPEED;
+          }
+        }
+
+        autoplayRaf = requestAnimationFrame(tick);
+      };
+
+      autoplayRaf = requestAnimationFrame(tick);
+    }
+
+    function stopAutoplay() {
+      if (autoplayRaf) {
+        cancelAnimationFrame(autoplayRaf);
+        autoplayRaf = null;
+      }
+    }
+
+    // Pause on hover/focus
+    wrapper.addEventListener('mouseenter', pauseCarousel);
+    wrapper.addEventListener('mouseleave', resumeCarousel);
+    wrapper.addEventListener('focusin', pauseCarousel);
+    wrapper.addEventListener('focusout', resumeCarousel);
+
+    // ---- Swipe / Drag support using Pointer Events (mouse + touch)
+    let isPointerDown = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    const onPointerDown = (e) => {
+      isPointerDown = true;
       pauseCarousel();
-      startX = (e.pageX || e.touches?.[0]?.pageX || 0) - carousel.offsetLeft;
-      scrollLeft = carousel.scrollLeft;
+
+      // capture pointer so dragging continues even if leaving element
+      wrapper.setPointerCapture?.(e.pointerId);
+
+      startX = e.clientX;
+      startScrollLeft = wrapper.scrollLeft;
     };
 
-    const endDrag = () => {
-      isDown = false;
+    const onPointerMove = (e) => {
+      if (!isPointerDown) return;
+      e.preventDefault();
+
+      const dx = e.clientX - startX;
+      wrapper.scrollLeft = startScrollLeft - dx;
+    };
+
+    const onPointerUp = () => {
+      if (!isPointerDown) return;
+      isPointerDown = false;
       resumeCarousel();
     };
 
-    const drag = (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = (e.pageX || e.touches?.[0]?.pageX || 0) - carousel.offsetLeft;
-      const walk = (x - startX) * 2;
-      carousel.scrollLeft = scrollLeft - walk;
-    };
+    wrapper.addEventListener('pointerdown', onPointerDown, { passive: true });
+    wrapper.addEventListener('pointermove', onPointerMove, { passive: false });
+    wrapper.addEventListener('pointerup', onPointerUp, { passive: true });
+    wrapper.addEventListener('pointercancel', onPointerUp, { passive: true });
+    wrapper.addEventListener('pointerleave', onPointerUp, { passive: true });
 
-    carousel.addEventListener('mousedown', startDrag);
-    carousel.addEventListener('touchstart', startDrag);
-    carousel.addEventListener('mouseleave', endDrag);
-    carousel.addEventListener('mouseup', endDrag);
-    carousel.addEventListener('touchend', endDrag);
-    carousel.addEventListener('mousemove', drag);
-    carousel.addEventListener('touchmove', drag);
-
-    // Keyboard support
-    carousel.addEventListener('keydown', (e) => {
+    // ---- Keyboard support (focus wrapper, then arrows)
+    wrapper.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowLeft') prevSlide();
       if (e.key === 'ArrowRight') nextSlide();
     });
+
+    // Start autoplay on load
+    startAutoplay();
   </script>
 
 </body>
