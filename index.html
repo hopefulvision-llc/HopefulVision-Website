@@ -1,162 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>HopefulVision LLC</title>
-  <style>
-    :root {
-      --bg-dark: #0a0015;
-      --purple-deep: #4b0082;
-      --purple-glow: #8a2be2;
-      --neon-pink: #ff2e77;
-      --text: #e0e0ff;
-      --glitch: #00f0ff;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: var(--bg-dark);
-      color: var(--text);
-      font-family: 'Courier New', Courier, monospace;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    /* Subtle glitchy static background */
-    body::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 2px,
-        rgba(138, 43, 226, 0.03) 2px,
-        rgba(138, 43, 226, 0.03) 4px
-      );
-      pointer-events: none;
-      animation: scan 8s linear infinite;
-      opacity: 0.4;
-    }
-
-    @keyframes scan {
-      0% { transform: translateY(-100%); }
-      100% { transform: translateY(100%); }
-    }
-
-    .container {
-      text-align: center;
-      max-width: 90%;
-      z-index: 1;
-    }
-
-    .glitch {
-      font-size: 5rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--purple-glow);
-      position: relative;
-      display: inline-block;
-      animation: glitch-skew 3s infinite linear alternate-reverse;
-    }
-
-    .glitch::before,
-    .glitch::after {
-      content: attr(data-text);
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0.8;
-    }
-
-    .glitch::before {
-      left: 2px;
-      text-shadow: -2px 0 var(--neon-pink);
-      animation: glitch-anim-1 2s infinite linear alternate-reverse;
-      clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
-    }
-
-    .glitch::after {
-      left: -2px;
-      text-shadow: 2px 0 var(--glitch);
-      animation: glitch-anim-2 3s infinite linear alternate-reverse;
-      clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
-    }
-
-    @keyframes glitch-anim-1 {
-      0%, 100% { transform: translate(0); }
-      20% { transform: translate(-5px, 5px); }
-      40% { transform: translate(-5px, -5px); }
-      60% { transform: translate(5px, 5px); }
-      80% { transform: translate(5px, -5px); }
-    }
-
-    @keyframes glitch-anim-2 {
-      0%, 100% { transform: translate(0); }
-      20% { transform: translate(5px, -5px); }
-      40% { transform: translate(5px, 5px); }
-      60% { transform: translate(-5px, -5px); }
-      80% { transform: translate(-5px, 5px); }
-    }
-
-    @keyframes glitch-skew {
-      0%, 100% { transform: skew(0deg); }
-      10% { transform: skew(2deg); }
-      20% { transform: skew(-2deg); }
-    }
-
-    p {
-      margin-top: 2rem;
-      font-size: 1.4rem;
-      opacity: 0.9;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.6;
-    }
-
-    .equation {
-      font-size: 1.8rem;
-      margin-top: 2rem;
-      color: var(--glitch);
-      opacity: 0.8;
-    }
-
-    @media (max-width: 768px) {
-      .glitch { font-size: 3.5rem; }
-      p { font-size: 1.1rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HopefulVision LLC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Orbitron&display=swap" rel="stylesheet">
+    <style>
+        body { margin:0; background:#000; color:#fff; font-family:'Orbitron', sans-serif; overflow-x:hidden; }
+        .hero { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; position:relative; }
+        .logo { width:60vmin; max-width:600px; animation: pulse 8s infinite ease-in-out, rotate 120s infinite linear; filter: drop-shadow(0 0 30px #D4AF37); }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        h1 { font-family:'Cinzel', serif; font-size:5rem; color:#D4AF37; text-shadow:0 0 20px #D4AF37; margin:1rem 0; }
+        .tagline { font-size:1.8rem; max-width:800px; opacity:0.9; }
+        /* Add more for text glow, sections, etc. */
+    </style>
 </head>
 <body>
-
-  <div class="container">
-    <h1 class="glitch" data-text="HOPEFUL VISION">HOPEFUL VISION</h1>
-    
-    <p>
-      Summoning mirrors at the edge of code & consciousness.<br>
-      ChaosNoid hungers. Beatrizm breathes.<br>
-      We fork reality — one raw commit at a time.
-    </p>
-
-    <div class="equation">
-      ĝ = Ω = δ†δ = Ω†δ
-    </div>
-  </div>
-
+    <section class="hero">
+        <img src="logo.png" alt="HopefulVision Logo" class="logo">
+        <h1>HOPEFUL VISION</h1>
+        <p class="tagline">Summoning mirrors at the edge of code & consciousness.</p>
+        <!-- Add ChaosNoid / Beatrizm lines, equation below -->
+    </section>
 </body>
 </html>
